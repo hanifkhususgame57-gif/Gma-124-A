@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fotocopy Hanif Fathullah</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+         :root {
+            --paper: #FAF9F6;
+            --ink: #16181D;
+            --muted: #5B6068;
+            --line: #C9CCD1;
+            --blue: #2255FF;
+            --blue-deep: #1A3FCC;
+            --cyan: #22D3EE;
+            --bg: #D9DCE1;
+            --dot: #C3C7CD;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            margin: 0;
+            font-family: "IBM Plex Sans", sans-serif;
+            color: var(--ink);
+            line-height: 1.6;
+            background: var(--bg) radial-gradient(var(--dot) 1.2px, transparent 1.3px) 0 0/16px 16px;
+        }
+        
+        h1,
+        h2,
+        h3,
+        .brand b {
+            font-family: "Bricolage Grotesque", sans-serif;
+            letter-spacing: -.02em;
+            line-height: 1.1;
+            margin: 0;
+        }
+        
+        a {
+            color: inherit;
+        }
+        
+        .wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .sheet {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            box-shadow: 0 1px 0 var(--line), 6px 8px 0 -2px #e5e3df, 0 12px 30px rgba(0, 0, 0, .08);
+        }
+        
+        section {
+            padding: 36px 0;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--blue);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 13px 22px;
+            border-radius: 4px;
+            border-bottom: 4px solid var(--blue-deep);
+        }
+        
+        .btn::before {
+            content: "";
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--cyan);
+        }
+        
+        .btn.ghost {
+            background: transparent;
+            color: var(--ink);
+            border: 1.5px solid var(--line);
+        }
+        
+        .btn.ghost::before {
+            display: none;
+        }
+        /* NAVBAR */
+        
+        header {
+            padding: 18px 0;
+        }
+        
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 14px 20px;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        
+        .brand svg {
+            width: 44px;
+            height: 44px;
+            flex: none;
+        }
+        
+        .brand b {
+            font-size: 1.15rem;
+            font-weight: 800;
+            display: block;
+        }
+        
+        .brand small {
+            color: var(--muted);
+            font-size: .78rem;
+            display: block;
+        }
+        
+        .nav>ul {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav>ul a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--muted);
+        }
+        
+        .nav>ul a:hover {
+            color: var(--blue);
+        }
+        /* DROPDOWN GAME */
+        
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            cursor: pointer;
+        }
+        
+        .arrow {
+            font-size: 13px;
+            transition: transform .3s ease;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 12px);
+            left: 0;
+            min-width: 210px;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 7px;
+            padding: 8px;
+            list-style: none;
+            display: none;
+            flex-direction: column;
+            gap: 3px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .13);
+            z-index: 1000;
+        }
+        
+        .dropdown-menu li {
+            width: 100%;
+        }
+        
+        .dropdown-menu li a {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 5px;
+            color: var(--ink);
+            white-space: nowrap;
+        }
+        
+        .dropdown-menu li a:hover {
+            background: var(--blue);
+            color: white;
+        }
+        
+        .dropdown:hover .dropdown-menu,
+        .dropdown:focus-within .dropdown-menu,
+        .dropdown.active .dropdown-menu {
+            display: flex;
+        }
+        
+        .dropdown:hover .arrow,
+        .dropdown.active .arrow {
+            transform: rotate(180deg);
+        }
+        /* HERO */
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 44px 40px;
+        }
+        
+        .hero-text {
+            flex: 1 1 50%;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            font-weight: 800;
+        }
+        
+        .hero p {
+            color: var(--muted);
+            font-size: 1.1rem;
+            max-width: 46ch;
+            margin: 16px 0 26px;
+        }
+        
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .hero-img {
+            flex: 1 1 45%;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .hero-img svg {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+        }
+        /* FITUR */
+        
+        .fitur {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .fitur-item {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 20px;
+        }
+        
+        .ico {
+            flex: none;
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            background: var(--ink);
+            display: grid;
+            place-items: center;
+        }
+        
+        .ico svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--cyan);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        .fitur-item h3 {
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+        
+        .fitur-item p {
+            margin: 0;
+            color: var(--muted);
+            font-size: .93rem;
+        }
+        /* JUDUL SECTION */
+        
+        .sec-head {
+            margin-bottom: 22px;
+        }
+        
+        .sec-head h2 {
+            font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+        }
+        
+        .sec-head p {
+            margin: 6px 0 0;
+            color: var(--muted);
+            max-width: 56ch;
+        }
+        /* LAYANAN */
+        
+        .layanan {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+        
+        .card {
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .card .ico {
+            margin-bottom: 6px;
+        }
+        
+        .card h3 {
+            font-size: 1.1rem;
+        }
+        
+        .card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: .93rem;
+        }
+        
+        .card .harga {
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 2px dashed var(--line);
+            font-weight: 600;
+            color: var(--blue);
+        }
+        /* GALERI */
+        
+        .galeri {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 150px;
+            gap: 14px;
+        }
+        
+        .galeri figure {
+            margin: 0;
+            border-radius: 6px;
+            border: 1px solid var(--line);
+            overflow: hidden;
+            position: relative;
+            background: var(--line);
+        }
+        
+        .galeri figure.wide {
+            grid-column: span 2;
+        }
+        
+        .galeri figure.tall {
+            grid-row: span 2;
+        }
+        
+        .galeri img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .galeri figcaption {
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            background: var(--paper);
+            color: var(--ink);
+            font-size: .8rem;
+            font-weight: 600;
+            padding: 3px 9px;
+            border-radius: 3px;
+        }
+        /* TESTIMONI */
+        
+        .testi {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+        
+        .testi blockquote {
+            margin: 0;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .testi p {
+            margin: 0;
+        }
+        
+        .testi footer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: auto;
+        }
+        
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--blue);
+            overflow: hidden;
+            flex: none;
+        }
+        
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .testi cite {
+            font-style: normal;
+            font-weight: 600;
+            display: block;
+        }
+        
+        .testi small {
+            color: var(--muted);
+        }
+        /* CTA */
+        
+        .cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 28px 36px;
+            background: var(--ink);
+            color: var(--paper);
+            border-radius: 6px;
+        }
+        
+        .cta h2 {
+            font-size: 1.6rem;
+        }
+        
+        .cta p {
+            margin: 4px 0 0;
+            opacity: .75;
+        }
+        /* FOOTER */
+        
+        footer.site {
+            margin-top: 40px;
+            padding: 28px 0 36px;
+        }
+        
+        .foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 22px 28px;
+            flex-wrap: wrap;
+        }
+        
+        .foot ul {
+            display: flex;
+            gap: 22px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .foot a {
+            text-decoration: none;
+            color: var(--muted);
+            font-weight: 500;
+        }
+        
+        .foot small {
+            color: var(--muted);
+        }
+        
+        .dash {
+            border: 0;
+            border-top: 2px dashed var(--line);
+            margin: 0;
+        }
+        /* RESPONSIVE */
+        
+        @media (max-width: 900px) {
+            .layanan {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .galeri {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .testi {
+                grid-template-columns: 1fr;
+            }
+            .fitur {
+                flex-direction: column;
+            }
+            .hero {
+                padding: 32px 24px;
+            }
+        }
+        
+        @media (max-width: 700px) {
+            .nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav>ul {
+                flex-wrap: wrap;
+                gap: 12px 18px;
+            }
+            .dropdown-menu {
+                top: calc(100% + 5px);
+            }
+            .hero {
+                flex-direction: column;
+                text-align: left;
+                align-items: flex-start;
+            }
+            .hero-img {
+                width: 100%;
+            }
+            .layanan {
+                grid-template-columns: 1fr;
+            }
+            .galeri {
+                grid-auto-rows: 130px;
+            }
+            .cta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .foot {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .foot ul {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ICON -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-copy" viewBox="0 0 24 24">
+            <rect x="8" y="8" width="12" height="12" rx="2"/>
+            <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>
+        </symbol>
+
+        <symbol id="i-print" viewBox="0 0 24 24">
+            <path d="M6 9V3h12v6"/>
+            <rect x="3" y="9" width="18" height="8" rx="2"/>
+            <path d="M7 14h10v7H7z"/>
+        </symbol>
+
+        <symbol id="i-book" viewBox="0 0 24 24">
+            <path d="M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/>
+            <path d="M8 4v13"/>
+        </symbol>
+
+        <symbol id="i-layer" viewBox="0 0 24 24">
+            <path d="m12 3 9 5-9 5-9-5z"/>
+            <path d="m3 13 9 5 9-5"/>
+        </symbol>
+
+        <symbol id="i-clock" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 2"/>
+        </symbol>
+
+        <symbol id="i-tag" viewBox="0 0 24 24">
+            <path d="M3 12V4h8l10 10-8 8z"/>
+            <circle cx="7.5" cy="8.5" r="1.2"/>
+        </symbol>
+
+        <symbol id="i-check" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="m8 12 3 3 5-6"/>
+        </symbol>
+    </svg>
+
+    <!-- HEADER -->
+    <header>
+        <div class="wrap">
+            <nav class="nav sheet">
+
+                <a class="brand" href="#">
+                    <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <rect x="10" y="4" width="36" height="22" rx="2" fill="#fff" stroke="#16181D" stroke-width="3"/>
+                        <path d="M17 12h16M17 18h22" stroke="#16181D" stroke-width="3"/>
+                        <rect x="2" y="26" width="60" height="32" rx="7" fill="#16181D"/>
+                        <circle cx="50" cy="38" r="4" fill="#22D3EE"/>
+                    </svg>
+
+                    <span>
+                        <b>Fotocopy Hanif Fathullah</b>
+                        <small>Fotocopy, cetak, jilid, jasa dan laminating</small>
+                    </span>
+                </a>
+
+                <ul>
+                    <li><a href="#layanan">Layanan</a></li>
+                    <li><a href="#galeri">Galeri</a></li>
+                    <li><a href="#testimoni">Testimoni</a></li>
+
+                    <!-- DROPDOWN GAME -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" aria-expanded="false">
+                            Game <span class="arrow">▾</span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="game.html">🎮 Game 1 - Game Saya</a>
+                                <li class="dropdown-game">
+                                    <a href="#" class="dropdown-game-toggle" aria-expanded="false">
+        Game <span class="arrow">▾</span>
+    </a>
+
+                                    <ul class="dropdown-game-menu">
+                                        <li>
+                                            <a href="game.html"> 1 - Game Saya</a>
+                                        </li>
+
+                                        <!-- Tambahkan game berikutnya di sini -->
+                                        <li>
+                                            <a href="100 game.html"> Game 2 - Game Kedua</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li><a href="#kontak">Kontak</a></li>
+                </ul>
+
+                <a class="btn" href="login.html">Masuk</a>
+
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- HERO -->
+        <section style="padding-top:12px">
+            <div class="wrap">
+                <div class="hero sheet">
+
+                    <div class="hero-text">
+                        <h1>Cetak cepat, hasil rapi, harga bersahabat.</h1>
+
+                        <p>
+                            Fotocopy, cetak dokumen, jilid, jasa pengetikan, dan laminating dalam satu tempat. Pantau pesanan dan antrean Anda langsung dari akun.
+                        </p>
+
+                        <div class="hero-actions">
+                            <a class="btn" href="#layanan">Lihat layanan</a>
+                            <a class="btn ghost" href="register.html">Daftar gratis</a>
+                        </div>
+                    </div>
+
+                    <div class="hero-img">
+                        <svg viewBox="0 0 420 340" role="img" aria-label="Ilustrasi mesin fotocopy">
+                            <rect x="60" y="30" width="190" height="130" rx="6" fill="#fff" stroke="#C9CCD1" stroke-width="3" transform="rotate(-6 155 95)"/>
+                            <rect x="80" y="20" width="190" height="130" rx="6" fill="#fff" stroke="#C9CCD1" stroke-width="3"/>
+                            <path d="M105 55h110M105 80h140M105 105h90" stroke="#16181D" stroke-width="8" stroke-linecap="round"/>
+                            <rect x="25" y="140" width="370" height="170" rx="22" fill="#16181D"/>
+                            <rect x="55" y="170" width="200" height="14" rx="7" fill="#2A2E36"/>
+                            <rect x="55" y="262" width="230" height="28" rx="6" fill="#2A2E36"/>
+                            <circle cx="340" cy="190" r="14" fill="#22D3EE"/>
+                            <circle cx="340" cy="190" r="24" fill="none" stroke="#22D3EE" stroke-opacity=".35" stroke-width="3"/>
+                            <rect x="315" y="240" width="55" height="14" rx="7" fill="#2255FF"/>
+                        </svg>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FITUR -->
+        <section>
+            <div class="wrap">
+                <div class="fitur">
+
+                    <div class="fitur-item sheet">
+                        <span class="ico">
+                            <svg><use href="#i-clock"/></svg>
+                        </span>
+                        <div>
+                            <h3>Selesai cepat</h3>
+                            <p>Dokumen biasa bisa ditunggu. Jilid dan laminating siap di hari yang sama.</p>
+                        </div>
+                    </div>
+
+                    <div class="fitur-item sheet">
+                        <span class="ico">
+                            <svg><use href="#i-tag"/></svg>
+                        </span>
+                        <div>
+                            <h3>Harga jelas</h3>
+                            <p>Tarif per lembar tertulis di awal, tanpa biaya tambahan di akhir.</p>
+                        </div>
+                    </div>
+
+                    <div class="fitur-item sheet">
+                        <span class="ico">
+                            <svg><use href="#i-check"/></svg>
+                        </span>
+                        <div>
+                            <h3>Hasil bersih</h3>
+                            <p>Mesin dirawat rutin, jadi cetakan tajam dan tidak bergaris.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <hr class="dash wrap">
+
+        <!-- LAYANAN -->
+        <section id="layanan">
+            <div class="wrap">
+                <div class="sec-head">
+                    <h2>Layanan kami</h2>
+                    <p>Pilih layanan sesuai kebutuhan. Semua bisa dipesan di tempat atau lewat akun Anda.</p>
+                </div>
+
+                <div class="layanan">
+
+                    <article class="card sheet">
+                        <span class="ico"><svg><use href="#i-copy"/></svg></span>
+                        <h3>Fotocopy</h3>
+                        <p>Hitam putih dan warna, berbagai ukuran kertas dari A4 sampai F4.</p>
+                        <span class="harga">Mulai Rp300/lembar</span>
+                    </article>
+
+                    <article class="card sheet">
+                        <span class="ico"><svg><use href="#i-print"/></svg></span>
+                        <h3>Cetak dokumen</h3>
+                        <p>Cetak tugas, skripsi, formulir, dan berkas kantor dari flashdisk atau email.</p>
+                        <span class="harga">Mulai Rp500/lembar</span>
+                    </article>
+
+                    <article class="card sheet">
+                        <span class="ico"><svg><use href="#i-book"/></svg></span>
+                        <h3>Jilid</h3>
+                        <p>Jilid spiral, lakban, dan hardcover untuk laporan dan makalah.</p>
+                        <span class="harga">Mulai Rp5.000</span>
+                    </article>
+
+                    <article class="card sheet">
+                        <span class="ico"><svg><use href="#i-layer"/></svg></span>
+                        <h3>Laminating</h3>
+                        <p>Lindungi KTP, sertifikat, dan foto dari air dan lipatan.</p>
+                        <span class="harga">Mulai Rp3.000</span>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- GALERI -->
+        <section id="galeri">
+            <div class="wrap">
+                <div class="sec-head">
+                    <h2>Galeri hasil kerja</h2>
+                    <p>Beberapa contoh pesanan yang pernah kami kerjakan.</p>
+                </div>
+
+                <div class="galeri">
+
+                    <figure class="wide">
+                        <img src="gambarr/hasil jilid spiral.jpg" alt="Hasil jilid spiral">
+                        <figcaption>Jilid spiral</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="gambarr/hasil laminating.jpg" alt="Hasil laminating">
+                        <figcaption>Laminating</figcaption>
+                    </figure>
+
+                    <figure class="tall">
+                        <img src="gambarr/hasil-cetak-warna.jpg" alt="Hasil cetak warna">
+                        <figcaption>Cetak warna</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="gambarr/hasil-foto-copy.jpg" alt="Hasil fotocopy">
+                        <figcaption>Fotocopy</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="gambarr/foto stiker dan foto.jpg" alt="Label dan stiker">
+                        <figcaption>Label dan stiker</figcaption>
+                    </figure>
+
+                    <figure class="wide">
+                        <img src="gambarr/hard-cover-script.jpg" alt="Hardcover skripsi">
+                        <figcaption>Hardcover skripsi</figcaption>
+                    </figure>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONI -->
+        <section id="testimoni">
+            <div class="wrap">
+                <div class="sec-head">
+                    <h2>Kata pelanggan</h2>
+                </div>
+
+                <div class="testi">
+
+                    <blockquote class="sheet">
+                        <p>Jilid skripsi saya selesai sore itu juga. Hasilnya rapi dan harganya pas untuk mahasiswa.</p>
+                        <footer>
+                            <span class="avatar">
+                                <img src="avatar/abizhar.jpg" alt="Foto Abizhar">
+                            </span>
+                            <span>
+                                <cite>Abizhar</cite>
+                                <small>Mahasiswa</small>
+                            </span>
+                        </footer>
+                    </blockquote>
+
+                    <blockquote class="sheet">
+                        <p>Cetak berkas kantor puluhan lembar tidak ada yang miring. Antreannya juga bisa dicek dari akun.</p>
+                        <footer>
+                            <span class="avatar">
+                                <img src="avatar/astrid.jpg" alt="Foto Astrid">
+                            </span>
+                            <span>
+                                <cite>Astrid</cite>
+                                <small>Staf administrasi</small>
+                            </span>
+                        </footer>
+                    </blockquote>
+
+                    <blockquote class="sheet">
+                        <p>Laminating sertifikat anak saya mulus, tanpa gelembung. Pasti balik lagi!</p>
+                        <footer>
+                            <span class="avatar">
+                                <img src="avatar/gusti.jpg" alt="Foto Gusti">
+                            </span>
+                            <span>
+                                <cite>Gusti</cite>
+                                <small>Ibu rumah tangga</small>
+                            </span>
+                        </footer>
+                    </blockquote>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- KONTAK -->
+        <section id="kontak">
+            <div class="wrap">
+                <div class="cta">
+                    <div>
+                        <h2>Punya berkas yang mau dicetak?</h2>
+                        <p>Buat akun dan kirim pesanan tanpa antre di tempat.</p>
+                    </div>
+
+                    <a class="btn" href="register.html">Daftar gratis</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site">
+        <div class="wrap">
+            <div class="foot sheet">
+
+                <a class="brand" href="#">
+                    <b>Fotocopy Hanif Fathullah</b>
+                </a>
+
+                <ul>
+                    <li><a href="#layanan">Layanan</a></li>
+                    <li><a href="#galeri">Galeri</a></li>
+                    <li><a href="#testimoni">Testimoni</a></li>
+                    <li><a href="login.html">Masuk</a></li>
+                </ul>
+
+                <small>© 2026 Fotocopy Hanif Fathullah</small>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT DROPDOWN -->
+    <script>
+        const dropdown = document.querySelector('.dropdown');
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+
+        dropdownToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const isActive = dropdown.classList.toggle('active');
+
+            dropdownToggle.setAttribute(
+                'aria-expanded',
+                isActive ? 'true' : 'false'
+            );
+        });
+
+        // Tutup dropdown ketika klik di luar menu
+        document.addEventListener('click', function(e) {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+                dropdownToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Tutup dropdown dengan tombol Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                dropdown.classList.remove('active');
+                dropdownToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    </script>
+
+</body>
+
+</html>

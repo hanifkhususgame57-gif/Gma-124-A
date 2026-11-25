@@ -1,0 +1,453 @@
+:root {
+    --meja: #d9dde2;
+    --kertas: #fbfbfa;
+    --toner: #1b1d21;
+    --abu: #5f6670;
+    --garis: #c5cad1;
+    --biru: #1f5eff;
+    --biru-tua: #1546c4;
+    --lampu: #3de8ff;
+    --merah: #d92d2d;
+    --font-judul: "Bricolage Grotesque", "Arial Black", Arial, sans-serif;
+    --font-isi: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--font-isi);
+    color: var(--toner);
+    background-color: var(--meja);
+    background-image: radial-gradient(rgba(27, 29, 33, .13) 1px, transparent 1.4px);
+    background-size: 14px 14px;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    min-height: 100%;
+}
+
+
+/* ===== Tumpukan kertas ===== */
+
+.tumpukan {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+}
+
+.tumpukan::before,
+.tumpukan::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--kertas);
+    border: 1px solid var(--garis);
+    border-radius: 4px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, .05);
+}
+
+.tumpukan::before {
+    transform: rotate(-3.2deg) translate(-6px, 6px);
+}
+
+.tumpukan::after {
+    transform: rotate(2.4deg) translate(8px, 4px);
+}
+
+
+/* ===== Lembar utama ===== */
+
+.lembar {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    background: var(--kertas);
+    border: 1px solid var(--garis);
+    border-radius: 4px;
+    padding: 36px 34px 30px;
+    box-shadow: 0 18px 40px -18px rgba(27, 29, 33, .45);
+}
+
+
+/* Sinar pemindai: satu kali lewat saat halaman dibuka */
+
+.pemindai {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 56px;
+    pointer-events: none;
+    z-index: 5;
+    background: linear-gradient(to bottom, rgba(61, 232, 255, 0) 0%, rgba(61, 232, 255, .35) 70%, rgba(61, 232, 255, .9) 96%, #fff 100%);
+    box-shadow: 0 6px 22px 4px rgba(61, 232, 255, .55);
+    transform: translateY(-120%);
+    animation: pindai 1.6s cubic-bezier(.55, .1, .35, 1) .3s 1 forwards;
+}
+
+@keyframes pindai {
+    0% {
+        transform: translateY(-120%);
+        opacity: 1;
+    }
+    92% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(var(--tinggi, 560px));
+        opacity: 0;
+    }
+}
+
+
+/* Isi lembar "tercetak" mengikuti sinar pemindai */
+
+.isi {
+    animation: cetak 1.6s ease-out .3s both;
+}
+
+@keyframes cetak {
+    0% {
+        clip-path: inset(0 0 100% 0);
+    }
+    100% {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+
+/* ===== Merek ===== */
+
+.merek {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 26px;
+}
+
+.logo {
+    width: 52px;
+    height: 46px;
+    flex: none;
+    position: relative;
+}
+
+
+/* Ikon mesin fotocopy dari CSS */
+
+.logo .badan {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 28px;
+    background: var(--toner);
+    border-radius: 6px;
+}
+
+.logo .badan::after {
+    content: "";
+    position: absolute;
+    right: 6px;
+    top: 7px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--lampu);
+    box-shadow: 0 0 6px var(--lampu);
+}
+
+.logo .kaca {
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    top: 14px;
+    height: 6px;
+    background: #fff;
+    border-radius: 2px 2px 0 0;
+    z-index: 2;
+}
+
+.logo .kertas {
+    position: absolute;
+    left: 11px;
+    width: 30px;
+    top: 0;
+    height: 22px;
+    background: #fff;
+    border: 2px solid var(--toner);
+    border-radius: 2px;
+    transform: rotate(-6deg);
+    z-index: 1;
+}
+
+.logo .kertas::before,
+.logo .kertas::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    height: 2px;
+    background: var(--toner);
+}
+
+.logo .kertas::before {
+    top: 5px;
+}
+
+.logo .kertas::after {
+    top: 10px;
+    right: 10px;
+}
+
+.merek h1 {
+    font-family: var(--font-judul);
+    font-weight: 800;
+    font-size: 1.55rem;
+    line-height: 1.05;
+    letter-spacing: -.02em;
+}
+
+.merek p {
+    font-size: .82rem;
+    color: var(--abu);
+    margin-top: 4px;
+}
+
+.garis-gunting {
+    border: 0;
+    border-top: 2px dashed var(--garis);
+    margin: 0 0 22px;
+}
+
+
+/* ===== Form ===== */
+
+.judul-form {
+    font-family: var(--font-judul);
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+}
+
+.sub-form {
+    font-size: .9rem;
+    color: var(--abu);
+    margin-bottom: 20px;
+}
+
+.kolom {
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.input-bungkus {
+    position: relative;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    font: inherit;
+    font-size: .95rem;
+    color: var(--toner);
+    background: #fff;
+    border: 1.5px solid var(--garis);
+    border-radius: 4px;
+    padding: 12px 14px;
+    transition: border-color .15s, box-shadow .15s;
+}
+
+input::placeholder {
+    color: #98a0aa;
+}
+
+input:hover {
+    border-color: #9aa2ad;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--biru);
+    box-shadow: 0 0 0 3px rgba(31, 94, 255, .18);
+}
+
+#sandi {
+    padding-right: 76px;
+}
+
+.tombol-intip {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    font: inherit;
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--biru);
+    background: transparent;
+    border: 0;
+    padding: 6px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.tombol-intip:hover {
+    background: rgba(31, 94, 255, .08);
+}
+
+.tombol-intip:focus-visible {
+    outline: 2px solid var(--biru);
+}
+
+.baris {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 4px 0 22px;
+    font-size: .85rem;
+}
+
+.ingat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+    margin: 0;
+    cursor: pointer;
+}
+
+.ingat input {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--biru);
+    cursor: pointer;
+}
+
+a {
+    color: var(--biru);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:focus-visible {
+    outline: 2px solid var(--biru);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+
+/* Tombol dibuat seperti tombol "START" di mesin fotocopy */
+
+.tombol-masuk {
+    width: 100%;
+    font-family: var(--font-judul);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #fff;
+    background: var(--biru);
+    border: 0;
+    border-radius: 4px;
+    padding: 14px 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 0 var(--biru-tua);
+    transition: transform .08s, box-shadow .08s, background .15s;
+}
+
+.tombol-masuk:hover {
+    background: #2a68ff;
+}
+
+.tombol-masuk:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 var(--biru-tua);
+}
+
+.tombol-masuk:focus-visible {
+    outline: 3px solid var(--toner);
+    outline-offset: 3px;
+}
+
+.lampu-start {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--lampu);
+    box-shadow: 0 0 8px var(--lampu);
+}
+
+.pesan {
+    min-height: 20px;
+    margin-top: 12px;
+    font-size: .85rem;
+    font-weight: 500;
+}
+
+.pesan.salah {
+    color: var(--merah);
+}
+
+.pesan.benar {
+    color: #137a3a;
+}
+
+.kaki {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--garis);
+    font-size: .85rem;
+    color: var(--abu);
+    text-align: center;
+}
+
+
+/* ===== Layar kecil & aksesibilitas ===== */
+
+@media (max-width: 440px) {
+    .lembar {
+        padding: 28px 22px 24px;
+    }
+    .merek h1 {
+        font-size: 1.35rem;
+    }
+    .baris {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pemindai {
+        display: none;
+    }
+    .isi {
+        animation: none;
+    }
+    .tombol-masuk {
+        transition: none;
+    }
+}

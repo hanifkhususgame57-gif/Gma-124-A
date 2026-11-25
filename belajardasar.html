@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Masuk | Fotocopy Hanif Fathullah</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="belajar.css">
+</head>
+
+<body>
+
+    <main class="tumpukan">
+        <section class="lembar" id="lembar">
+            <div class="pemindai" aria-hidden="true"></div>
+
+            <div class="isi">
+                <header class="merek">
+                    <div class="logo" aria-hidden="true">
+                        <span class="kertas"></span>
+                        <span class="kaca"></span>
+                        <span class="badan"></span>
+                    </div>
+                    <div>
+                        <h1>Fotocopy Hanif Fathullah</h1>
+                        <p>Fotocopy, cetak, jilid,Jasa dan laminating</p>
+                    </div>
+                </header>
+
+                <hr class="garis-gunting">
+
+                <h2 class="judul-form">Masuk ke akun Anda</h2>
+                <p class="sub-form">Cek pesanan cetak dan antrean salinan Anda.</p>
+
+                <form id="formMasuk" novalidate>
+                    <div class="kolom">
+                        <label for="pengguna">Nama pengguna atau email</label>
+                        <input type="text" id="pengguna" name="pengguna" placeholder="contoh: budi@email.com" autocomplete="username" required>
+                    </div>
+
+                    <div class="kolom">
+                        <label for="sandi">Kata sandi</label>
+                        <div class="input-bungkus">
+                            <input type="password" id="sandi" name="sandi" placeholder="Masukkan kata sandi" autocomplete="current-password" required>
+                            <button type="button" class="tombol-intip" id="intip" aria-label="Tampilkan kata sandi">Tampilkan</button>
+                        </div>
+                    </div>
+
+                    <div class="baris">
+                        <label class="ingat" for="ingat">
+            <input type="checkbox" id="ingat" name="ingat"> Ingat saya
+          </label>
+                        <a href="#">Lupa kata sandi?</a>
+                    </div>
+
+                    <button type="submit" class="tombol-masuk">
+          <span class="lampu-start" aria-hidden="true"></span> Masuk
+        </button>
+
+                    <p class="pesan" id="pesan" role="status" aria-live="polite"></p>
+                </form>
+
+                <p class="kaki">Belum punya akun? <a href="Register.html">Daftar gratis</a></p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Atur tinggi jalur sinar pemindai sesuai tinggi kartu
+        const lembar = document.getElementById('lembar');
+        lembar.style.setProperty('--tinggi', lembar.offsetHeight + 'px');
+
+        // Tampilkan / sembunyikan kata sandi
+        const sandi = document.getElementById('sandi');
+        const intip = document.getElementById('intip');
+        intip.addEventListener('click', () => {
+            const tersembunyi = sandi.type === 'password';
+            sandi.type = tersembunyi ? 'text' : 'password';
+            intip.textContent = tersembunyi ? 'Sembunyikan' : 'Tampilkan';
+            intip.setAttribute('aria-label', tersembunyi ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi');
+        });
+
+        // Validasi sederhana (ganti dengan proses login Anda)
+        const form = document.getElementById('formMasuk');
+        const pesan = document.getElementById('pesan');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const pengguna = document.getElementById('pengguna').value.trim();
+            const kataSandi = sandi.value;
+            pesan.className = 'pesan';
+
+            if (!pengguna || !kataSandi) {
+                pesan.classList.add('salah');
+                pesan.textContent = 'Isi nama pengguna dan kata sandi terlebih dahulu.';
+                return;
+            }
+            if (kataSandi.length < 6) {
+                pesan.classList.add('salah');
+                pesan.textContent = 'Kata sandi minimal 6 karakter.';
+                return;
+            }
+            pesan.classList.add('benar');
+            pesan.textContent = 'Berhasil masuk. Mengalihkan ke dashboard...';
+        });
+    </script>
+</body>
+
+</html>

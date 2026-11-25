@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Daftar | Fotocopy Maju Jaya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Belajar.css">
+</head>
+
+<body>
+
+    <main class="tumpukan">
+        <section class="lembar" id="lembar">
+            <div class="pemindai" aria-hidden="true"></div>
+
+            <div class="isi">
+                <header class="merek">
+                    <div class="logo" aria-hidden="true">
+                        <span class="kertas"></span>
+                        <span class="kaca"></span>
+                        <span class="badan"></span>
+                    </div>
+                    <div>
+                        <h1>Fotocopy Maju Jaya</h1>
+                        <p>Fotocopy, cetak, jilid, dan laminating</p>
+                    </div>
+                </header>
+
+                <hr class="garis-gunting">
+
+                <h2 class="judul-form">Buat akun baru</h2>
+                <p class="sub-form">Pantau pesanan cetak Anda dari satu tempat.</p>
+
+                <form id="formDaftar" novalidate>
+                    <div class="kolom">
+                        <label for="nama">Nama lengkap</label>
+                        <input type="text" id="nama" placeholder="contoh: Budi Santoso" autocomplete="name" required>
+                    </div>
+
+                    <div class="kolom">
+                        <label for="email">Email</label>
+                        <input type="text" id="email" placeholder="contoh: budi@email.com" autocomplete="email" required>
+                    </div>
+
+                    <div class="kolom">
+                        <label for="sandi">Kata sandi</label>
+                        <div class="input-bungkus">
+                            <input type="password" id="sandi" placeholder="Minimal 6 karakter" autocomplete="new-password" required>
+                            <button type="button" class="tombol-intip" id="intip" aria-label="Tampilkan kata sandi">Tampilkan</button>
+                        </div>
+                    </div>
+
+                    <div class="kolom">
+                        <label for="ulang">Ulangi kata sandi</label>
+                        <input type="password" id="ulang" placeholder="Ketik ulang kata sandi" autocomplete="new-password" required>
+                    </div>
+
+                    <button type="submit" class="tombol-masuk" style="margin-top:6px">
+          <span class="lampu-start" aria-hidden="true"></span> Daftar
+        </button>
+
+                    <p class="pesan" id="pesan" role="status" aria-live="polite"></p>
+                </form>
+
+                <p class="kaki">Sudah punya akun? <a href="login-fotocopy.html">Masuk di sini</a></p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Alamat API (hapus bagian fetch di bawah jika belum memakai API)
+        const API = 'http://localhost:3000/api';
+
+        // Atur tinggi jalur sinar pemindai sesuai tinggi kartu
+        const lembar = document.getElementById('lembar');
+        lembar.style.setProperty('--tinggi', lembar.offsetHeight + 'px');
+
+        // Tampilkan / sembunyikan kata sandi
+        const sandi = document.getElementById('sandi');
+        const intip = document.getElementById('intip');
+        intip.addEventListener('click', () => {
+            const tersembunyi = sandi.type === 'password';
+            sandi.type = tersembunyi ? 'text' : 'password';
+            intip.textContent = tersembunyi ? 'Sembunyikan' : 'Tampilkan';
+            intip.setAttribute('aria-label', tersembunyi ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi');
+        });
+
+        const pesan = document.getElementById('pesan');
+
+        function tampil(teks, jenis) {
+            pesan.className = 'pesan ' + jenis;
+            pesan.textContent = teks;
+        }
+
+        // Proses pendaftaran
+        document.getElementById('formDaftar').addEventListener('submit', async(e) => {
+            e.preventDefault();
+            const nama = document.getElementById('nama').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const kataSandi = sandi.value;
+            const ulang = document.getElementById('ulang').value;
+
+            if (!nama || !email || !kataSandi) return tampil('Lengkapi semua kolom terlebih dahulu.', 'salah');
+            if (!/^\S+@\S+\.\S+$/.test(email)) return tampil('Format email belum benar.', 'salah');
+            if (kataSandi.length < 6) return tampil('Kata sandi minimal 6 karakter.', 'salah');
+            if (kataSandi !== ulang) return tampil('Kata sandi dan pengulangannya tidak sama.', 'salah');
+
+            try {
+                const res = await fetch(API + '/daftar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        nama,
+                        email,
+                        sandi: kataSandi
+                    })
+                });
+                const data = await res.json();
+                if (!res.ok) return tampil(data.pesan || 'Pendaftaran gagal.', 'salah');
+                tampil('Akun dibuat. Mengalihkan ke halaman masuk...', 'benar');
+                setTimeout(() => location.href = 'login-fotocopy.html', 1200);
+            } catch (err) {
+                tampil('Tidak bisa terhubung ke server. Pastikan API sudah berjalan.', 'salah');
+            }
+        });
+    </script>
+</body>
+
+</html>
